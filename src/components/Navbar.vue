@@ -13,7 +13,7 @@
 
 				<!-- MOBILE MENU HANDLER -->
 				<div class="mobile-menu-handler left primary"
-				@click="dropDown">
+				@click="menuOpen">
 					<img src="../assets/images/pull-icon.png" alt="pull-icon">
 				</div>
 				<!-- /MOBILE MENU HANDLER -->
@@ -27,7 +27,8 @@
 				<!-- /LOGO MOBILE -->
 
 				<!-- MOBILE ACCOUNT OPTIONS HANDLER -->
-				<div class="mobile-account-options-handler right secondary">
+				<div class="mobile-account-options-handler right secondary"
+				@click="rightOpen">
 					<span class="icon-user"></span>
 				</div>
 				<!-- /MOBILE ACCOUNT OPTIONS HANDLER -->
@@ -37,19 +38,17 @@
 					<!-- USER QUICKVIEW -->
 					<div class="user-quickview">
 						<!-- USER AVATAR -->
-						<a href="author-profile.html">
-						<div class="outer-ring">
+						<div class="outer-ring" @click="dropDown">
 							<div class="inner-ring"></div>
 							<figure class="user-avatar">
 								<img src="../assets/images/avatars/avatar_01.jpg" alt="avatar">
 							</figure>
 						</div>
-						</a>
 						<!-- /USER AVATAR -->
 
-						<!-- USER INFORMATION -->
+						<!-- USER INFORMATION this is for web view-->
 						<p class="user-name"
-						@click="dropDown">Arjun</p>
+						@click="dropDown">Arjun Marasini</p>
 						<!-- SVG ARROW -->
 						<svg class="svg-arrow">
 							<use xlink:href="#svg-arrow"></use>
@@ -58,7 +57,8 @@
 						<p class="user-money">Member</p>
 						<!-- /USER INFORMATION -->
 
-						<!-- DROPDOWN -->
+						<!--Web DROPDOWN -->
+						<transition name="fade">
 						<ul class="dropdown small hover-effect" v-if="opened">
 							<li class="dropdown-item">
 								<div class="dropdown-triangle"></div>
@@ -71,6 +71,7 @@
 								<a href="logout.php">Logout</a>
 							</li>
 						</ul>
+						</transition>
 						<!-- /DROPDOWN -->
 					</div>
 					<!-- /USER QUICKVIEW -->
@@ -80,8 +81,9 @@
 		</div>
 		<!-- /HEADER -->
 
-		<!-- SIDE MENU -->
-		<div id="mobile-menu" class="side-menu left" v-if="opened">
+		<!-- SIDE MENU mobile left menu-->
+		<transition name="fade">
+		<div id="mobile-menu" class="side-menu left" v-if="menuOpened">
 			<!-- SVG PLUS -->
 			<svg class="svg-plus">
 				<use xlink:href="#svg-plus"></use>
@@ -97,10 +99,11 @@
 			<!-- /SIDE MENU HEADER -->
 
 			<!-- SIDE MENU TITLE -->
-			<p class="side-menu-title">Main Links</p>
+			<p class="side-menu-title"
+			@click="menuOpen"> Close Menu</p>
 			<!-- /SIDE MENU TITLE -->
 
-			<!-- DROPDOWN -->
+			<!-- DROPDOWN left side menu -->
 			<ul class="dropdown dark hover-effect interactive">
 				<!-- DROPDOWN ITEM -->
 				<li class="dropdown-item">
@@ -134,10 +137,12 @@
 			</ul>
 			<!-- /DROPDOWN -->
 		</div>
+		</transition>
 		<!-- /SIDE MENU -->
 
-		<!-- SIDE MENU -->
-		<div id="account-options-menu" class="side-menu right closed">
+		<!-- SIDE MENU mobile rght -->
+		<transition name="fade">
+		<div id="account-options-menu" class="side-menu right" v-if="rightOpened">
 			<!-- SVG PLUS -->
 			<svg class="svg-plus">
 				<use xlink:href="#svg-plus"></use>
@@ -147,20 +152,17 @@
 			<!-- SIDE MENU HEADER -->
 			<div class="side-menu-header">
 				<!-- USER QUICKVIEW -->
-				<div class="user-quickview">
+				<div class="user-quickview" @click="dropDown">
 					<!-- USER AVATAR -->
-					<a href="author-profile.html">
 					<div class="outer-ring">
-						<div class="inner-ring"></div>
 						<figure class="user-avatar">
 							<img src="../assets/images/avatars/avatar_01.jpg" alt="avatar">
 						</figure>
 					</div>
-					</a>
 					<!-- /USER AVATAR -->
 
 					<!-- USER INFORMATION -->
-					<p class="user-name" @click="dropDown">Arjun Marasini</p>
+					<p class="user-name" @click="dropDown">Arjun</p>
 					<p class="user-money">Member</p>
 					<!-- /USER INFORMATION -->
 				</div>
@@ -168,44 +170,13 @@
 			</div>
 			<!-- /SIDE MENU HEADER -->
 
-			<!-- SIDE MENU TITLE -->
+			<!-- SIDE MENU TITLE right side menu -->
 			<p class="side-menu-title">Your Account</p>
 			<!-- /SIDE MENU TITLE -->
 
-			<!-- DROPDOWN -->
-			<ul class="dropdown dark hover-effect" v-if="opened">
-				<!-- DROPDOWN ITEM -->
-				<li class="dropdown-item">
-					<a href="#">Notifications</a>
-				</li>
-				<!-- /DROPDOWN ITEM -->
-
-				<!-- DROPDOWN ITEM -->
-				<li class="dropdown-item">
-					<a href="#">Messages</a>
-				</li>
-				<!-- /DROPDOWN ITEM -->
-
-				<!-- DROPDOWN ITEM -->
-				<li class="dropdown-item">
-					<a href="#">Your Cart</a>
-				</li>
-				<!-- /DROPDOWN ITEM -->
-
-				<!-- DROPDOWN ITEM -->
-				<li class="dropdown-item">
-					<a href="#">Favourites</a>
-				</li>
-				<!-- /DROPDOWN ITEM -->
-			</ul>
-			<!-- /DROPDOWN -->
-
-			<!-- SIDE MENU TITLE -->
-			<p class="side-menu-title">Dashboard</p>
-			<!-- /SIDE MENU TITLE -->
-
-			<!-- DROPDOWN -->
-			<ul class="dropdown dark hover-effect">
+			<!-- DROPDOWN  mobile right menu -->
+			<transition>
+			<ul class="dropdown dark hover-effect" name="fade" v-if="!opened">
 				<!-- DROPDOWN ITEM -->
 				<li class="dropdown-item">
 					<a href="#">Profile Page</a>
@@ -218,13 +189,25 @@
 				</li>
 				<!-- /DROPDOWN ITEM -->
 
-				
+				<!-- DROPDOWN ITEM -->
+				<li class="dropdown-item">
+					<a href="#">Logout</a>
+				</li>
+				<!-- /DROPDOWN ITEM -->
+				<!-- DROPDOWN ITEM -->
+				<li class="dropdown-item">
+					<a href="#" @click="rightOpen">close</a>
+				</li>
+				<!-- /DROPDOWN ITEM -->
 			</ul>
+			</transition>
+			
 			<!-- /DROPDOWN -->
 		</div>
+		</transition>
 		<!-- /SIDE MENU -->
 
-		<!-- MAIN MENU -->
+		<!-- MAIN MENU for web -->
 		<div class="main-menu-wrap">
 			<div class="menu-bar">
 				<nav>
@@ -274,16 +257,39 @@ export default {
   name: "mynavbar",
   data: function() {
     return {
-      opened: false
+      opened: false,
+      menuOpened: false,
+      rightOpened: false
     };
   },
   methods: {
     dropDown: function() {
       return (this.opened = !this.opened);
+    },
+    menuOpen: function() {
+      return (this.menuOpened = !this.menuOpened);
+    },
+    rightOpen: function() {
+      return (this.rightOpened = !this.rightOpened);
     }
   }
 };
 </script>
 <style>
+.fade-enter {
+  opacity: 0;
+}
+.fade-enter-active {
+  transition: opacity 2s;
+}
+/* .fade-leave{
+		opacity: 1;
+	} */
+.fade-leave-active {
+  transition: opacity 1s;
+  opacity: 0;
+}
+/* .slide-menu-enter {
+} */
 </style>
 

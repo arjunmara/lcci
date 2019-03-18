@@ -82,10 +82,10 @@
 
                         <!-- DROPDOWN -->
                         <ul class="dropdown hover-effect">
-                            <li class="dropdown-item active">
+                            <li class="dropdown-item" @click="showProfile" v-bind:class="active">
                                 <a href="#">Profile Page</a>
                             </li>
-                            <li class="dropdown-item">
+                            <li class="dropdown-item" @click="showProfile">
                                 <a href="#">Members</a>
                             </li>
                         </ul>
@@ -94,7 +94,7 @@
                     <!-- /SIDEBAR -->
 
                     <!-- CONTENT -->
-                    <div class="content right" id="mem-profile">
+                    <div class="content right" id="mem-profile" v-if="profile">
                         <!-- HEADLINE -->
                         <div class="headline buttons primary">
                             <h4>Arjun's Items</h4>
@@ -437,7 +437,7 @@
                     </div>
                     <!-- CONTENT -->
                     <!-- CONTENT -->
-                    <div class="content right" id="mem-list">
+                    <div class="content right" id="mem-list" v-if="!profile">
                         <!-- HEADLINE -->
                         <div class="headline simple primary">
                             <h4>Members</h4>
@@ -536,6 +536,7 @@ export default {
   name: "home",
   data: function() {
     return {
+      profile: true,
       members: [
         { name: "Arjun Marasini", position: "Manager" },
         { name: "Nischal Rana", position: "Manager" },
@@ -543,6 +544,11 @@ export default {
         { name: "Arjun Marasini", position: "Manager" }
       ]
     };
+  },
+  methods: {
+    showProfile: function() {
+      return (this.profile = !this.profile);
+    }
   },
   components: {
     myNavbar,
